@@ -1,4 +1,4 @@
-# Adaptive Dispersion Round Robin (ADRR) v3.0
+# Adaptive Dispersion Round Robin (ADRR)
 
 An advanced, end-to-end CPU scheduling simulator built in C, designed to evaluate and optimize OS scheduling efficiency under extreme workloads (e.g., video rendering, massive data processing).
 
@@ -6,7 +6,7 @@ This simulator bypasses static mock data by featuring a **dynamic benchmarking p
 
 ## 🚀 Key Features & Architecture
 
-* **Multi-Tiered "Smart Traffic Controller"**: ADRR v3.0 introduces a dynamic classification framework that categorizes active processes into three tiers:
+* **Multi-Tiered "Smart Traffic Controller"**: ADRR introduces a dynamic classification framework that categorizes active processes into three tiers:
   1. **Starving:** Heavy tasks waiting too long.
   2. **Foreground:** Short tasks requiring instant response.
   3. **Batch:** Massive tasks requiring uninterrupted rhythm.
@@ -16,7 +16,7 @@ This simulator bypasses static mock data by featuring a **dynamic benchmarking p
 
 ## 📊 Benchmark Results
 
-Under a 50-iteration synthetic stress test (simulating heavy 100% CPU utilization via infinite background loops), ADRR v3.0 was benchmarked against traditional baseline algorithms:
+Under a 50-iteration synthetic stress test (simulating heavy 100% CPU utilization via infinite background loops), the finalized architecture (ADRR v3.0) was benchmarked against its predecessor (ADRR v2.0) and traditional baseline algorithms:
 
 | Algorithm | Avg Turnaround Time (TAT) | Avg Wait Time (WT) | Avg Response Time (RT) | Context Switches (CS) |
 | :--- | :--- | :--- | :--- | :--- |
