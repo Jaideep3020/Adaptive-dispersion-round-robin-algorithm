@@ -49,7 +49,7 @@ git clone https://github.com/Jaideep3020/Adaptive-dispersion-round-robin-algorit
 cd Adaptive-dispersion-round-robin-algorithm
 
 # Compile with math library linking
-gcc "g1 (1).c" -o adrr_sim -lm
+gcc "adrr_simulator.c" -o adrr_sim -lm
 
 # Run the simulation
 ./adrr_sim
