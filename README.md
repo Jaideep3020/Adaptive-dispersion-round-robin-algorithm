@@ -2,9 +2,9 @@
 
 An advanced, end-to-end CPU scheduling simulator built in C, designed to evaluate and optimize OS scheduling efficiency under extreme workloads (e.g., video rendering, massive data processing).
 
-This simulator bypasses static mock data by featuring a **dynamic benchmarking pipeline** that parses live Linux `/proc` filesystem data (via WSL) to capture real-world process entropy and burst times.
+This simulator bypasses static mock data by featuring a **dynamic benchmarking pipeline** that parses live Linux `/proc` filesystem data to capture real-world process entropy and burst times.
 
-## 🚀 Key Features
+## 🚀 Key Features & Architecture
 
 * **Multi-Tiered "Smart Traffic Controller"**: ADRR v3.0 introduces a dynamic classification framework that categorizes active processes into three tiers:
   1. **Starving:** Heavy tasks waiting too long.
@@ -31,18 +31,40 @@ Under a 50-iteration synthetic stress test (simulating heavy 100% CPU utilizatio
 * **50% Reduction in Latency:** Reduced average TAT to 4,183ms compared to standard 3-Level MLFQ (7,971ms) and F&P (5,618ms).
 * **Minimized Context Switches:** Dropped CS to an absolute minimum of **24** per workload, ensuring massive batch tasks maintain uninterrupted processing rhythm without sacrificing real-time UI feel.
 
-## 💻 How to Run
+---
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Jaideep3020/Adaptive-dispersion-round-robin-algorithm.git
-   cd Adaptive-dispersion-round-robin-algorithm
-   ```
-2. Compile the C code (requires `gcc`):
-   ```bash
-   gcc "g1 (1).c" -o adrr_sim -lm
-   ```
-3. Run the simulator (must be run in a Linux/WSL environment to access `/proc`):
-   ```bash
-   ./adrr_sim
-   ```
+## 💻 How to Run on Your Local Machine
+
+### 1. Prerequisites
+Because the simulator reads live process data from the operating system, it **must be run in a Linux environment** (native Ubuntu or Windows Subsystem for Linux (WSL)).
+* Ensure you have `gcc` installed:
+  ```bash
+  sudo apt update && sudo apt install build-essential
+  ```
+
+### 2. Standard Execution
+Clone the repository and compile the simulator:
+```bash
+git clone https://github.com/Jaideep3020/Adaptive-dispersion-round-robin-algorithm.git
+cd Adaptive-dispersion-round-robin-algorithm
+
+# Compile with math library linking
+gcc "g1 (1).c" -o adrr_sim -lm
+
+# Run the simulation
+./adrr_sim
+```
+
+### 3. Replicating the Extreme "Video Rendering" Stress Test
+To see ADRR v3.0 perform at its best, you must simulate a heavy workload (like Premiere Pro) while the simulator runs. You can do this by spawning artificial background CPU loops:
+
+```bash
+# Step 1: Start 4 infinite background loops to max out the CPU cores
+for i in 1 2 3 4; do while true; do true; done & done
+
+# Step 2: Wait 1 second for the CPU to spike, then run the simulator
+sleep 1 && ./adrr_sim
+
+# Step 3: CRITICAL - Kill the background loops after the simulator finishes!
+pkill -P $$
+```
